@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TECHFEST 2026 — Build The Future</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap');
+
+:root{
+  --bg:#03040a; --panel:rgba(10,13,28,.62); --line:rgba(145,112,255,.22);
+  --purple:#8b4dff; --blue:#28a9ff; --pink:#d74cff; --text:#f4f5ff; --muted:#9da2bb;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,sans-serif;overflow-x:hidden}
+body:before{
+  content:"";position:fixed;inset:0;z-index:-5;opacity:.22;
+  background-image:linear-gradient(rgba(115,90,255,.08) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(115,90,255,.08) 1px,transparent 1px);
+  background-size:70px 70px;
+  mask-image:linear-gradient(to bottom,#000,transparent 90%);
+}
+body:after{
+  content:"";position:fixed;width:700px;height:700px;right:-300px;top:-250px;
+  border-radius:50%;background:#4c24ff;filter:blur(220px);opacity:.14;z-index:-4;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,90%);margin:auto}
+nav{
+  position:fixed;top:0;left:0;width:100%;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 5%;backdrop-filter:blur(18px);
+  background:rgba(3,4,10,.58);border-bottom:1px solid rgba(255,255,255,.06)
+}
+.brand{font-family:Orbitron;font-size:18px;letter-spacing:3px;font-weight:700}
+.brand span{color:var(--purple)}
+.links{display:flex;gap:34px;font-size:12px;color:#b9bdd0;letter-spacing:1px}
+.links a:hover{color:#fff}
+.nav-btn,.btn{
+  padding:13px 22px;border:1px solid #8b4dff;border-radius:30px;
+  background:linear-gradient(110deg,#7a39ff,#1d8eff);box-shadow:0 0 30px #7b39ff25;
+  font-size:12px;font-weight:700;letter-spacing:.8px
+}
+.nav-btn{padding:10px 18px}
+.hero{min-height:100vh;display:grid;grid-template-columns:45% 55%;align-items:center;padding-top:90px;position:relative}
+.kicker{font-family:Orbitron;color:#a35cff;font-size:12px;letter-spacing:6px;margin-bottom:24px}
+h1{font-family:Orbitron;font-size:clamp(48px,7vw,90px);line-height:.98;letter-spacing:-4px}
+h1 span{background:linear-gradient(90deg,#fff,#a54cff,#339dff);-webkit-background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:530px;line-height:1.8;margin:28px 0 34px}
+.actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.ghost{padding:13px 21px;border:1px solid #555777;border-radius:30px;font-size:12px}
+.ghost:hover{border-color:#a35cff}
+.scene{height:650px;position:relative;display:grid;place-items:center;perspective:1000px}
+.orb{position:absolute;width:440px;height:440px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#456dff,#15174c 34%,#070918 68%);
+  box-shadow:0 0 100px #4c42ff55, inset -30px -35px 80px #000;
+  animation:float 5s ease-in-out infinite}
+.orb:after{content:"";position:absolute;inset:-70px;border:1px solid #8b4dff55;border-radius:50%;transform:rotateX(65deg)}
+.orb:before{content:"";position:absolute;inset:-110px;border:1px solid #2aa9ff44;border-radius:50%;transform:rotateY(65deg)}
+.cube{width:210px;height:210px;position:relative;transform-style:preserve-3d;animation:spin 12s linear infinite}
+.face{position:absolute;width:210px;height:210px;border:1px solid #a96dff99;
+  background:linear-gradient(135deg,#5420a944,#127cff22);backdrop-filter:blur(3px);
+  box-shadow:inset 0 0 35px #934dff25,0 0 25px #784bff35}
+.front{transform:translateZ(105px)} .back{transform:rotateY(180deg) translateZ(105px)}
+.right{transform:rotateY(90deg) translateZ(105px)} .left{transform:rotateY(-90deg) translateZ(105px)}
+.top{transform:rotateX(90deg) translateZ(105px)} .bottom{transform:rotateX(-90deg) translateZ(105px)}
+.cube-core{position:absolute;inset:58px;background:linear-gradient(135deg,#a53dff,#168eff);
+  transform:translateZ(0);box-shadow:0 0 50px #934dff}
+.float-dot{position:absolute;border-radius:50%;background:#b76cff;box-shadow:0 0 18px #a84cff;animation:drift 5s infinite ease-in-out}
+.d1{width:9px;height:9px;left:12%;top:20%}.d2{width:6px;height:6px;right:12%;top:31%;animation-delay:1s}
+.d3{width:11px;height:11px;right:22%;bottom:18%;animation-delay:2s}.d4{width:5px;height:5px;left:18%;bottom:25%;animation-delay:3s}
+.scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-size:10px;color:#777c9b;letter-spacing:3px}
+.section{padding:110px 0}
+.section-tag{font-family:Orbitron;color:#9a63ff;font-size:11px;letter-spacing:4px}
+.section-title{font-family:Orbitron;font-size:clamp(32px,5vw,58px);margin:15px 0 50px}
+.section-title span{color:#a04dff}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{padding:30px;min-height:230px;border:1px solid var(--line);background:var(--panel);
+  border-radius:20px;backdrop-filter:blur(16px);transition:.4s;transform-style:preserve-3d}
+.card:hover{border-color:#a15cff;box-shadow:0 25px 70px #0008;transform:translateY(-8px) rotateX(2deg)}
+.icon{font-size:34px;margin-bottom:30px}
+.card h3{font-family:Orbitron;font-size:15px;margin-bottom:12px}
+.card p{font-size:13px;line-height:1.7;color:var(--muted)}
+.journey{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:70px}
+.journey-copy p{color:var(--muted);line-height:1.8;max-width:520px;margin-bottom:25px}
+.atom{height:420px;position:relative;display:grid;place-items:center}
+.core{width:105px;height:105px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#69baff,#4c1fba 55%,#080817);box-shadow:0 0 80px #814dff}
+.ring{position:absolute;width:390px;height:160px;border:1px solid #8b4dff88;border-radius:50%;transform:rotate(-22deg)}
+.ring:nth-child(2){transform:rotate(38deg);border-color:#28a9ff66}
+.ring:nth-child(3){transform:rotate(88deg);border-color:#d74cff55}
+.electron{position:absolute;width:13px;height:13px;border-radius:50%;background:#6ab9ff;box-shadow:0 0 20px #28a9ff}
+.countdown{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.timer{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.time{padding:24px 10px;text-align:center;border:1px solid var(--line);border-radius:15px;background:#090c19}
+.time strong{font-family:Orbitron;font-size:30px}.time small{display:block;color:#777d99;margin-top:8px;font-size:9px;letter-spacing:2px}
+.ticket{padding:35px;border:1px solid #7446d8;border-radius:20px;background:linear-gradient(135deg,#17102f,#08152a)}
+.ticket h3{font-family:Orbitron;font-size:25px;margin:10px 0}
+.ticket p{color:var(--muted);line-height:1.7;margin-bottom:22px}
+.final{padding:130px 0;text-align:center;position:relative}
+.final h2{font-family:Orbitron;font-size:clamp(45px,8vw,100px);letter-spacing:-4px}
+.final h2 span{color:#9c4dff}
+footer{border-top:1px solid #ffffff10;padding:25px 0;color:#656a82;font-size:11px;display:flex;justify-content:space-between}
+.reveal{opacity:0;transform:translateY(70px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.reveal.show{opacity:1;transform:none}
+@keyframes spin{to{transform:rotateX(360deg) rotateY(360deg)}}
+@keyframes float{50%{transform:translateY(-18px) scale(1.02)}}
+@keyframes drift{50%{transform:translate(20px,-25px)}}
+@media(max-width:900px){
+  .links{display:none}.hero{grid-template-columns:1fr;padding-top:120px}.scene{height:500px}.grid{grid-template-columns:1fr 1fr}.journey,.countdown{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .hero{padding-top:110px}.scene{height:400px}.orb{width:280px;height:280px}.cube,.face{width:135px;height:135px}
+  .cube .front,.cube .back,.cube .right,.cube .left,.cube .top,.cube .bottom{width:135px;height:135px}
+  .front{transform:translateZ(67px)}.back{transform:rotateY(180deg) translateZ(67px)}
+  .right{transform:rotateY(90deg) translateZ(67px)}.left{transform:rotateY(-90deg) translateZ(67px)}
+  .top{transform:rotateX(90deg) translateZ(67px)}.bottom{transform:rotateX(-90deg) translateZ(67px)}
+  .cube-core{inset:40px}.grid{grid-template-columns:1fr}.timer{grid-template-columns:repeat(2,1fr)}
+  footer{flex-direction:column;gap:10px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#">TECH<span>FEST</span> 2026</a>
+  <div class="links">
+    <a href="#experience">EXPERIENCE</a><a href="#events">EVENTS</a><a href="#journey">3D JOURNEY</a><a href="#tickets">TICKETS</a>
+  </div>
+  <a class="nav-btn" href="#tickets">GET TICKETS →</a>
+</nav>
+
+<main>
+<section class="hero container">
+  <div class="reveal">
+    <div class="kicker">TECHFEST 2026 // ONLINE</div>
+    <h1>BUILD<br>THE <span>FUTURE.</span></h1>
+    <p>A next-generation celebration of technology, creativity and human curiosity. Compete, create, connect and experience the future in 3D.</p>
+    <div class="actions">
+      <a class="btn" href="#events">EXPLORE EVENTS</a>
+      <a class="ghost" href="#journey">◉ START 3D JOURNEY</a>
+    </div>
+  </div>
+
+  <div class="scene" id="scene">
+    <div class="float-dot d1"></div><div class="float-dot d2"></div><div class="float-dot d3"></div><div class="float-dot d4"></div>
+    <div class="orb"></div>
+    <div class="cube" id="cube">
+      <div class="face front"></div><div class="face back"></div><div class="face right"></div>
+      <div class="face left"></div><div class="face top"></div><div class="face bottom"></div>
+      <div class="cube-core"></div>
+    </div>
+    <div class="scroll">SCROLL ↓</div>
+  </div>
+</section>
+
+<section class="section container reveal" id="experience">
+  <div class="section-tag">// WHAT TO EXPECT</div>
+  <h2 class="section-title">EXPERIENCE THE <span>EXCITEMENT.</span></h2>
+  <div class="grid">
+    <article class="card"><div class="icon">⬡</div><h3>COMPETITIONS</h3><p>Battle through hackathons, robotics, coding arenas and mind-bending tech challenges.</p></article>
+    <article class="card"><div class="icon">◉</div><h3>WORKSHOPS</h3><p>Learn directly from builders and level up your practical technology skills.</p></article>
+    <article class="card"><div class="icon">✦</div><h3>SPEAKERS</h3><p>Hear bold ideas from engineers, founders, researchers and innovators.</p></article>
+    <article class="card"><div class="icon">◇</div><h3>EXHIBITIONS</h3><p>Explore prototypes, emerging technologies and ideas that feel one step ahead.</p></article>
+  </div>
+</section>
+
+<section class="section container reveal" id="journey">
+  <div class="journey">
+    <div class="journey-copy">
+      <div class="section-tag">// IMMERSIVE JOURNEY</div>
+      <h2 class="section-title">A 3D JOURNEY<br>AWAITS <span>YOU.</span></h2>
+      <p>Move through the interface, interact with the objects and discover a digital universe built around technology. Drag the core below and watch the system respond.</p>
+      <a class="ghost" href="#tickets">ENTER THE SYSTEM →</a>
+    </div>
+    <div class="atom" id="atom">
+      <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+      <div class="core"></div><div class="electron" style="top:23%;left:50%"></div>
+      <div class="electron" style="bottom:23%;left:18%"></div><div class="electron" style="right:15%;top:55%"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section container reveal" id="tickets">
+  <div class="section-tag">// EVENT COUNTDOWN</div>
+  <h2 class="section-title">THE FEST BEGINS IN.</h2>
+  <div class="countdown">
+    <div class="timer">
+      <div class="time"><strong id="days">00</strong><small>DAYS</small></div>
+      <div class="time"><strong id="hours">00</strong><small>HOURS</small></div>
+      <div class="time"><strong id="mins">00</strong><small>MINS</small></div>
+      <div class="time"><strong id="secs">00</strong><small>SECS</small></div>
+    </div>
+    <div class="ticket">
+      <div class="section-tag">EARLY ACCESS</div>
+      <h3>SECURE YOUR SPOT.</h3>
+      <p>Join thousands of students, creators and future builders for the next wave of technology.</p>
+      <a class="btn" href="#">BOOK YOUR SPOT →</a>
+    </div>
+  </div>
+</section>
+
+<section class="final reveal">
+  <div class="container">
+    <div class="section-tag">// BE PART OF THE FUTURE</div>
+    <h2>ARE YOU <span>READY?</span></h2>
+    <p style="color:var(--muted);margin:20px auto 30px">The next chapter starts here.</p>
+    <a class="btn" href="#tickets">INITIALIZE →</a>
+  </div>
+</section>
+</main>
+
+<footer class="container">
+  <span>© 2026 TECHFEST // ALL SYSTEMS ONLINE</span>
+  <span>DESIGNED FOR THE NEXT GENERATION ◉</span>
+</footer>
+
+<script>
+const cube=document.getElementById('cube');
+const scene=document.getElementById('scene');
+scene.addEventListener('pointermove',e=>{
+  const r=scene.getBoundingClientRect();
+  const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+  cube.style.transform=`rotateX(${-y*28}deg) rotateY(${x*35}deg)`;
+});
+scene.addEventListener('pointerleave',()=>cube.style.transform='');
+
+const reveal=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')});
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>reveal.observe(el));
+
+const target=new Date();
+target.setDate(target.getDate()+42);
+function tick(){
+  const diff=Math.max(0,target-new Date());
+  const s=Math.floor(diff/1000);
+  document.getElementById('days').textContent=String(Math.floor(s/86400)).padStart(2,'0');
+  document.getElementById('hours').textContent=String(Math.floor(s%86400/3600)).padStart(2,'0');
+  document.getElementById('mins').textContent=String(Math.floor(s%3600/60)).padStart(2,'0');
+  document.getElementById('secs').textContent=String(s%60).padStart(2,'0');
+}
+tick();setInterval(tick,1000);
+
+const atom=document.getElementById('atom');
+let dragging=false,px=0,py=0,rx=0,ry=0;
+atom.addEventListener('pointerdown',e=>{dragging=true;px=e.clientX;py=e.clientY;atom.setPointerCapture(e.pointerId)});
+atom.addEventListener('pointermove',e=>{
+  if(!dragging)return;
+  ry+=(e.clientX-px)*.45;rx-=(e.clientY-py)*.45;px=e.clientX;py=e.clientY;
+  atom.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;
+});
+atom.addEventListener('pointerup',()=>dragging=false);
+</script>
+</body>
+</html>
